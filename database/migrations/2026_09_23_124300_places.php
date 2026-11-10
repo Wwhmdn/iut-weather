@@ -18,8 +18,6 @@ return new class extends Migration
             $table->float('latitude');
             $table->float('longitude');
             $table->timestamps();
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
         });
     }
     /**
