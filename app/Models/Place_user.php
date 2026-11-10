@@ -2,20 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Table;
 
-#[Table(timestamps: false)]
-class Place_user extends Model
+class PlaceUser extends Model
 {
-    //
-    /**
-     * Les attributs qui peuvent être assignés en masse.
-     *
-     * // var array c'est pour dire que c'est un tableau à VSCode 
-     * @var array
-     */
-
+    use HasFactory;
 
     protected $fillable = [
         'place_id',
@@ -24,4 +17,11 @@ class Place_user extends Model
         'send_forecast',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'is_favorite' => 'boolean',
+            'send_forecast' => 'boolean',
+        ];
+    }
 }

@@ -2,26 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-#[Table('places')]
-class Places extends Model
+class Place extends Model
 {
-    //
-    /**
-     * Les attributs qui peuvent être assignés en masse.
-     *
-     * // var array c'est pour dire que c'est un tableau à VSCode 
-     * @var array
-     */
+    use HasFactory;
 
+    protected $table = 'place_user';
+    public $timestamps = false;
 
-    //fillable = protéger contre l'assignation de masse, donc on met les champs qu'on veut protéger pour pas que l'utilisateur puisse les modifier
-        protected $fillable = [
+    protected $fillable = [
         'name',
         'slug',
         'latitude',
         'longitude',
     ];
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('send_forecast', 'is_favorite')
+            ->withTimestamps();
+    }
 }
